@@ -1,0 +1,18 @@
+{
+  "name": "learn-ometa",
+  "version": "1.0.0",
+  "description": "Only for learn ometa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "learn",
+    "ometa"
+  ],
+  "author": "andru255",
+  "license": "ISC",
+  "devDependencies": {
+    "ohm-js": "^0.9.0"
+  }
+}
