@@ -1,3 +1,19 @@
-MyGrammar {
-    miOwnExpr = "hi"
+/*
+  Testing a single Arithmetic class
+*/
+Arithmetic {
+  Exp
+    = AddExp
+
+  AddExp
+    = AddExp "+" PriExp -- plus
+    | AddExp "-" PriExp -- minus
+    | PriExp
+
+  PriExp
+    = "(" Exp ")" -- paren
+    | number
+
+  number
+    = digit+ -- fract
 }
