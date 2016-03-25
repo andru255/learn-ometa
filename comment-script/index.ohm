@@ -1,0 +1,34 @@
+/*
+  Testing a single Arithmetic class
+*/
+CommentScript {
+
+  //Setting a main expression
+  //EVER needs a main expression
+  Comments = Comment*
+  Comment = singleLineComment | multiLineComment
+
+  //"any" is a reserverd term for allow all characters
+  sourceCharacter = any
+
+  //overriding the "space" for every line
+  space := whitespace | lineTerminator
+  //By default a file have a "invisible" spaces, for this reason needs to considerate that
+  whitespace = "\t"
+    | "\x0B" --verticalTab
+    | "\x0C" --formFeed
+    | " "
+    | "\u00A0" --noBreakSpace
+    | "\uFEFF" --byteOrderMark
+    | unicodeSpaceSeparator
+
+  lineTerminator = "\n" | "\r" | "\u2028" | "\u2029"
+  unicodeSpaceSeparator = "\u2000".."\u200B" | "\u3000"
+
+  //When is Append the flags "--singleLine" and "--multiLine" when adding an operation in the semantics process
+  //singleLineComment = "//" (~"\n" sourceCharacter)* "\n" --singleLine
+  //multiLineComment = "/*" (~"*/" sourceCharacter)* "*/" --multiLine
+  singleLineComment = "//" (~"\n" sourceCharacter)* "\n"
+  multiLineComment = "/*" (~"*/" sourceCharacter)* "*/"
+
+}

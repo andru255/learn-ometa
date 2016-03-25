@@ -1,0 +1,8 @@
+// single comment
+/*
+   multipleComment
+   // single comment
+   // single comment
+   // single comment
+*/
+// single comment
