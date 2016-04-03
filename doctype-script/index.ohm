@@ -1,30 +1,17 @@
 /*
   Testing a single Arithmetic class
 */
-CommentScript {
+DoctypeScript {
+  Doctypes = formats*
 
-  //Setting a main expression
-  //EVER needs a main expression
-  Comment = singleLineComment | multiLineComment 
+  formats = 
+    html5
+    | xml
+    | transitional
+    | default
 
-  //"any" is a reserverd term for allow all characters
-  sourceCharacter = any
-
-  //overriding the "space" for every line
-  space := whitespace | lineTerminator
-  //By default a file have a "invisible" spaces, for this reason needs to considerate that
-  whitespace = "\t"
-    | "\x0B" --verticalTab
-    | "\x0C" --formFeed
-    | " "
-    | "\u00A0" --noBreakSpace
-    | "\uFEFF" --byteOrderMark
-    | unicodeSpaceSeparator
-
-  lineTerminator = "\n" | "\r" | "\u2028" | "\u2029"
-  unicodeSpaceSeparator = "\u2000".."\u200B" | "\u3000"
-
-  singleLineComment = "//" (~lineTerminator sourceCharacter)*
-  multiLineComment = "/*" (~"*/" sourceCharacter)* "*/"
-
+  html5        = "doctype html"
+  xml          = "doctype xml"
+  transitional = "doctype transitional"
+  default      = "doctype"
 }
