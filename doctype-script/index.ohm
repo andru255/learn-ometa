@@ -2,16 +2,16 @@
   Testing a single Arithmetic class
 */
 DoctypeScript {
-  Doctypes = formats*
-
+  DoctypeHeader = documentFormat*
+  documentFormat = "doctype" + formats
   formats = 
     html5
     | xml
     | transitional
     | default
 
-  html5        = "doctype html"
-  xml          = "doctype xml"
-  transitional = "doctype transitional"
-  default      = "doctype"
+  html5        = " html"
+  xml          = " xml"
+  transitional = " transitional"
+  default      = ""
 }

@@ -8,10 +8,13 @@ var testFile = fs.readFileSync('test-script.txt').toString();
 var meta = grammarObj.match(testFile.toString());
 var semantics = grammarObj.semantics();
 
-semantics.addOperation('interpret', {
-    "Doctypes": function(e){
-        console.log("e", e.interpret());
-        return e.interpret();
+semantics.addOperation('value', {
+    "DoctypeHeader": function(e){
+        console.log("e", e.value());
+        return e.value();
+    },
+    "documentFormat": function(prefix, documentName){
+        return documentName.value();
     },
     "default": function(e){
         return "<DOCTYPE html>";
@@ -29,7 +32,7 @@ semantics.addOperation('interpret', {
 
 if(meta.succeeded()){
   console.log("cool! it's time to know, ¿Whats up here?");
-  semantics(meta).interpret();
+  semantics(meta).value();
 } else {
   console.log(meta.message);
 }
