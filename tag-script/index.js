@@ -8,44 +8,32 @@ var testFile = fs.readFileSync('test-script.txt').toString();
 var meta = grammarObj.match(testFile.toString());
 var semantics = grammarObj.semantics();
 
-semantics.addOperation('interpret', {
-    "Tags": function(e){
-        console.log("e", e.interpret());
-        return e.interpret();
+semantics.addOperation('value', {
+    "tags": function(line){
+        return line.value();
     },
-    "space": function(e){
+    "row": function(initialSpace, tagName, posibleText, eol){
+        var indent = initialSpace.value()[0].length;
+        return [ indent, tagName.value(), posibleText.value()];
+    },
+    "pairWithTag": function(space, text){
+        return [space.value(), text.value()];
+    },
+    "closingTags": function(line){
+        console.log("closingTags", line.value());
+        return [ line.value()];
+    },
+    //"startWithWSLine": function(ws, tagName, text){
+    //    return [ ws.value(), tagName.value(), text.value()];
+    //},
+    "space": function(space){
         return "SPC";
     }
 });
-//semantics.addOperation('interpret', {
-//    "Tags": function(e){
-//        console.log("e", e.interpret());
-//        return e.interpret();
-//    },
-//    "space": function(e){
-//        console.log("space!!", e.interpret());
-//        return "SPACE";
-//    },
-//    "plainText": function(x, y){
-//        return this.interval.contents;
-//    },
-//    "closingTags": function(e){
-//        return "<closingTag><closingTag/>";
-//    },
-//    "inlineTags": function(e){
-//        return "<inlineTags/>";
-//    }
-//    "xml": function(e){
-//        return "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
-//    },
-//    "transitional": function(e){
-//        return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"";
-//    }
-//});
 
 if(meta.succeeded()){
   console.log("cool! it's time to know, ¿Whats up here?");
-  semantics(meta).interpret();
+  console.log("valueee!!", JSON.stringify(semantics(meta).value(), null, 2));
 } else {
   console.log(meta.message);
 }

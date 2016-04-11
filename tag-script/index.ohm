@@ -2,34 +2,11 @@
   Testing only tags
 */
 TagScript {
-  Tags = everyLine*
-
-  everyLine = Tag
-
-  //overriding the "space" for every line
-  space := whitespace | lineTerminator
-
-  //By default a file have a "invisible" spaces, for this reason needs to considerate that
-  whitespace = "\t"
-    | "\x0B" --verticalTab
-    | "\x0C" --formFeed
-    | " "
-    | "\u00A0" --noBreakSpace
-    | "\uFEFF" --byteOrderMark
-    | unicodeSpaceSeparator
-
-  lineTerminator = "\n" | "\r" | "\u2028" | "\u2029"
-  unicodeSpaceSeparator = "\u2000".."\u200B" | "\u3000"
-
-  Tag = 
-    sayHi
-    | closingTags
-    | inlineTags
-    | plainText
-
-  sayHi = 
-    "say" hi"
-
+  tags = row*
+  row = indent? closingTags pairWithTag eol?
+  pairWithTag = indent freeTextNoSpaces
+  freeTextNoSpaces = ( ~space any )*
+  indent = space*
   closingTags = 
     "html"
     | "div"
@@ -40,5 +17,7 @@ TagScript {
   inlineTags = 
     "img" 
 
-  plainText = "|" any*
+  plainText = "|" freeTextNoSpaces
+
+  eol = "\n"
 }
