@@ -2,22 +2,20 @@
   Testing only tags
 */
 TagScript {
-  tags = row*
-  row = indent? closingTags pairWithTag eol?
-  pairWithTag = indent freeTextNoSpaces
-  freeTextNoSpaces = ( ~space any )*
+  tags = row (eol ~end row)* eol?
+  row = indent? closingTags
+  closingTags = manyFreeTextNoSpaces
+  pairWithTag = indent textInline?
+  textInline = any (~eol any )* eol?
+
+  manyFreeTextNoSpaces = ( ~space any )*
+  freeTextNoSpaces = ~space any
+
   indent = space*
-  closingTags = 
-    "html"
-    | "div"
-    | "span"
-    | "p"
-    | "label"
 
   inlineTags = 
     "img" 
-
   plainText = "|" freeTextNoSpaces
 
-  eol = "\n"
+  eol = "\n" 
 }
