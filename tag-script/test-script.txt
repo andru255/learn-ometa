@@ -1,6 +1,5 @@
 html
-head
-p
-
-haha
-eee
+  head
+   title hello world
+  body
+    h1 hi!, Welcome to TagScript!

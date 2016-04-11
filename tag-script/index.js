@@ -10,24 +10,19 @@ var semantics = grammarObj.semantics();
 
 semantics.addOperation('value', {
     "tags": function(line, space, next, eol){
-        console.log("next!", next.value());
         return [ line.value()].concat(  next.value() );
     },
-    "row": function(initialSpace, tagName){
+    "row": function(initialSpace, tagName,  contentInTag){
         var indent = initialSpace.value()[0].length;
-        return [ indent, tagName.value()];
+        return [ indent, tagName.value(), contentInTag.value()];
     },
     "pairWithTag": function(space, text){
-        console.log("pairWithTag:space Found", space.value());
-        console.log("pairWithTag:text Found", text.value());
         return [space.value(), text.value()];
     },
-    "textInline": function(text, follow, eol){
-        var inline = [ text.value() ].concat(follow.value());
-        return [inline];
+    "textInline": function(text){
+        return [text.value()];
     },
     "closingTags": function(line){
-        console.log("closingTags:Tag Found", line.value());
         return [ line.value()];
     },
     "space": function(space){
