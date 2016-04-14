@@ -1,0 +1,32 @@
+/*
+  Testing only interpolation
+*/
+InterpolationScript <: CommentScript {
+  // check everyline
+  Comment += interpolations
+  interpolations = row (eol ~end row)* eol?
+
+  // for a single line
+  // check it have a indent
+  // then it have a tagName
+  // and it have a some content
+  row = indent? startSymbolInterpolation ( ~eol pairWithInterpolation )?
+
+  // match for some tagName
+  startSymbolInterpolation = "!="
+
+  // then the next part
+  pairWithInterpolation = indent textInline
+
+  // utility for check a inline text whitout EndOfLine (\n) strictly
+  textInline = ( ~eol any )* 
+
+  // utility for check a inline text whitout spaces (" ") strictly
+  manyFreeTextNoSpaces = ( ~space any )*
+
+  // for indent
+  indent = space*
+
+  // for check the EndOfLine
+  eol = "\n" 
+}

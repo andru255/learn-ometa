@@ -1,0 +1,18 @@
+!= Interpolation inline print code
+
+//!=
+//   Interpolation in block
+//   continue here maybe print code
+//
+//- A line for code maybe print nothing only for declare variables
+//
+//-
+//  A block for code maybe print nothing
+//
+//text text text text text #{hello_escaped}
+//text text #{hello_escaped_again} text text 
+//
+//text text text text text !{hello_unescaped}
+//text text #{hello_unescaped_again} text text 
+//
+//text= omg
