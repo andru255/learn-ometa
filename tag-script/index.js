@@ -10,20 +10,31 @@ var semantics = grammarObj.semantics();
 
 semantics.addOperation('value', {
     "tags": function(line, space, next, eol){
-        return [ line.value()].concat(  next.value() );
+        var tree = [ line.value()].concat(  next.value() );
+        return tree;
     },
     "row": function(initialSpace, tagName,  contentInTag){
         var indent = initialSpace.value()[0].length;
-        return [ indent, tagName.value(), contentInTag.value()];
+        var tagValueName = tagName.value().join("");
+        return {
+            indent: indent,
+            tagName: tagValueName, 
+            contentInline: contentInTag.value() 
+        };
     },
     "pairWithTag": function(space, text){
-        return [space.value(), text.value()];
+        var spaces = space.value().length;
+        var content = text.value().join("");
+        return {
+            spaces: spaces,
+            content: content
+        };
     },
     "textInline": function(text){
-        return [text.value()];
+        return text.value();
     },
     "closingTags": function(line){
-        return [ line.value()];
+        return line.value();
     },
     "space": function(space){
         return "SPC";
