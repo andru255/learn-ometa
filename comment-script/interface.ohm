@@ -1,0 +1,4 @@
+Interface <: CommentScript{
+  comments = comment (eol ~end comment)* eol?
+  comment = indent? ( singleLineComment | multiLineComment)
+}

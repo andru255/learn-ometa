@@ -1,12 +1,15 @@
 var fs    = require("fs");
-
 var ohm = require("ohm-js");
-var grammarString = fs.readFileSync('index.ohm');
-var grammarObj = ohm.grammar(grammarString);
+var grammars = {};
+var commentScript = fs.readFileSync('index.ohm');
+var interface = fs.readFileSync('interface.ohm');
+
+grammars.commentScript = ohm.grammar(commentScript);
+grammars.interface = ohm.grammar(commentScript, grammars);
 
 var testFile = fs.readFileSync('test-script.txt').toString();
-var meta = grammarObj.match(testFile.toString());
-var semantics = grammarObj.semantics();
+var meta = grammars.interface.match(testFile.toString());
+var semantics = grammars.interface.semantics();
 
 semantics.addOperation('value', {
     "comments": function(line, space, next, eol){

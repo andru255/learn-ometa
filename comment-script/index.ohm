@@ -3,19 +3,12 @@
 */
 CommentScript {
 
-  //Setting a main expression
-  //EVER needs a main expression
-  comments = comment (eol ~end comment)* eol?
-  comment = indent? ( singleLineComment | multiLineComment)
-
   //When is Append the flags "--singleLine" and "--multiLine" when adding an operation in the semantics process
   //singleLineComment = "//" (~"\n" sourceCharacter)* "\n" --singleLine
   //multiLineComment = "/*" (~"*/" sourceCharacter)* "*/" --multiLine
-  
   indent = space*
   singleLineComment = "//" (~eol any)* 
   multiLineComment = "/*" (~endMultiLineComment any)* endMultiLineComment
   endMultiLineComment = "*/"
   eol = "\n"
-
 }
